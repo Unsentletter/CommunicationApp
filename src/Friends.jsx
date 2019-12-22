@@ -1,11 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addFriend } from '../actions/FriendActions';
 
-export default class Friends extends React.Component {
+class Friends extends React.Component {
   render() {
+    console.log(this.props.friends.possible);
     return (
       <View style={styles.container}>
         <Text>Add friends here!</Text>
+        {this.props.friends.possible.map((friend, index) => (
+          <Button
+            key={friend}
+            title={`Add ${friend}`}
+            onPress={() => this.props.addFriend(index)}
+          />
+        ))}
+        <Button
+          title="Back to home"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
       </View>
     );
   }
@@ -19,3 +34,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 });
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      addFriend
+    },
+    dispatch
+  );
+
+const mapStateToProps = state => {
+  const { friends } = state;
+  return { friends };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Friends);
