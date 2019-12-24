@@ -1,22 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
+import styled from 'styled-components/native';
 
-class Home extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Hi Jacob. How are you feeling today?</Text>
+const Home = props => {
+  const navigateToNextPage = rating => {
+    if (rating < 6) {
+      props.navigation.navigate('DescribeFeelingsScreen');
+      return;
+    }
+
+    props.navigation.navigate('FeelingDescriptionScreen');
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text>Hi Jacob. How are you feeling today?</Text>
+      <RatingWrapper>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(rating => {
-          <Button
-            title={rating}
-            onPress={() => this.props.navigation.navigate('FeelingDescriptionScreen')}
-          />;
+          return (
+            <Button
+              title={rating.toString()}
+              key={rating}
+              onPress={() => {
+                navigateToNextPage(rating);
+              }}
+            />
+          );
         })}
-      </View>
-    );
-  }
-}
+      </RatingWrapper>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +41,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 });
+
+const RatingWrapper = styled.View`
+  flex-direction: row;
+`;
 
 const mapStateToProps = state => {
   const { friends } = state;
