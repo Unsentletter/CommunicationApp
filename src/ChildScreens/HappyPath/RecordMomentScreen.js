@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, TextInput, Text, Button } from 'react-native';
+import { View, TextInput, Text } from 'react-native';
+import { Button } from 'react-native-paper';
 
 const RecordMomentScreen = props => {
   return (
@@ -10,9 +11,11 @@ const RecordMomentScreen = props => {
       </Text>
       <TextInput></TextInput>
       <Button
-        title={'Save'}
         onPress={() => props.navigation.navigate('ShareMomentQuestionScreen')}
-      />
+        mode='contained'
+      >
+        Save
+      </Button>
     </View>
   );
 };

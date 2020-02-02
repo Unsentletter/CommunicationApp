@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
+import { Button } from 'react-native-paper';
+import YesNoButtons from '../../Components/YesNoButtons';
 
 const ShareMomentQuestionScreen = props => {
   return (
@@ -9,13 +11,9 @@ const ShareMomentQuestionScreen = props => {
         relationships.
       </Text>
       <Text>Would you like to share this with your parents?</Text>
-      <Button
-        title={'Yes'}
-        onPress={() => props.navigation.navigate('MessageSentScreen')}
-      />
-      <Button
-        title={'No'}
-        onPress={() => props.navigation.navigate('MessageNotSentScreen')}
+      <YesNoButtons
+        onPressYes={() => props.navigation.navigate('MessageSentScreen')}
+        onPressNo={() => props.navigation.navigate('MessageNotSentScreen')}
       />
     </View>
   );

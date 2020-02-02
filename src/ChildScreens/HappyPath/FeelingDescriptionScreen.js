@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-paper';
 
 const words = ['Confident', 'Excited', 'Loved', 'Proud', 'Relaxed', 'Thankful'];
 
@@ -14,18 +15,20 @@ const FeelingDescriptionScreen = props => {
       </Text>
       {words.map(word => {
         return (
-          <TouchableOpacity
+          <Button
             key={word}
             onPress={() => setDescriptiveWords([...descriptiveWords, word])}
           >
-            <Text>{word}</Text>
-          </TouchableOpacity>
+            {word}
+          </Button>
         );
       })}
       <Button
-        title={'Next'}
         onPress={() => props.navigation.navigate('RecordMomentQuestionScreen')}
-      />
+        mode='contained'
+      >
+        Next
+      </Button>
     </View>
   );
 };

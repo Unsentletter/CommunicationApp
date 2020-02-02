@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Button } from 'react-native';
+import { View, Text } from 'react-native';
+import { Button } from 'react-native-paper';
+import styled from 'styled-components/native';
 
 const feelings = {
   Ashamed: 1,
@@ -13,7 +15,7 @@ const feelings = {
   Scared: 1,
   Worthless: 3,
   Insignificant: 3,
-  Embarrased: 2
+  Embarrased: 2,
 };
 
 const DescribeFeelingsScreen = props => {
@@ -22,12 +24,12 @@ const DescribeFeelingsScreen = props => {
   const renderFeelings = () => {
     return Object.entries(feelings).map(([key, value]) => {
       return (
-        <TouchableOpacity
+        <Button
           onPress={() => setFeelingsObject([...feelingsObject, value])}
           key={key}
         >
-          <Text>{key}</Text>
-        </TouchableOpacity>
+          {key}
+        </Button>
       );
     });
   };
@@ -56,10 +58,17 @@ const DescribeFeelingsScreen = props => {
         well.
       </Text>
       <Text>What other words would describe how you are feeling?</Text>
-      <View>{renderFeelings()}</View>
-      <Button title={'Next'} onPress={navigateToRelevantPage} />
+      <FeelingsWrapper>{renderFeelings()}</FeelingsWrapper>
+      <Button onPress={navigateToRelevantPage} mode={'contained'}>
+        Next
+      </Button>
     </View>
   );
 };
 
 export default DescribeFeelingsScreen;
+
+const FeelingsWrapper = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
